@@ -107,6 +107,7 @@ supported_schema_versions!(7);
 
 /// Datastore represents a datastore for Janus, with support for transactional reads and writes.
 /// In practice, Datastore instances are currently backed by a PostgreSQL database.
+#[derive(Clone)]
 pub struct Datastore<C: Clock> {
     pool: deadpool_postgres::Pool,
     crypter: Crypter,
@@ -5786,6 +5787,7 @@ impl RowExt for Row {
 ///
 /// Values are cryptographically bound to the specific location in the datastore in which they are
 /// stored.  Rollback protection is not provided.
+#[derive(Clone)]
 pub struct Crypter {
     keys: Vec<LessSafeKey>,
 }
